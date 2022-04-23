@@ -1,0 +1,12 @@
+Force:
+min
+max
+sd (για να δουμε πόσο σταθερα μπορεί να δώσει την δυναμη του ο κάθε ασθενης)
+
+CoP:
+IQR
+Power analysis
+max
+CoP travel
+
+
