@@ -6,7 +6,7 @@ sd (για να δουμε πόσο σταθερα μπορεί να δώσει 
 CoP:
 IQR (scipy.stats.iqr
 Power analysis
-max
+max - min
 CoP travel
 
 
