@@ -99,8 +99,8 @@ for i in range(len(list_X_coordinates_right_plate)):
 #Variables that will be calculated are:
 #Travel Distance
 #Inter Quatrile Range (IQR)
-#Power Spectrum
-#Max
+#Power Spectrum***
+#Max-min range
 
 #Travel Distance
 Total_Travel_Distance_of_left_leg = 0
@@ -119,9 +119,9 @@ for i in range(len(list_X_coordinates_left_plate_with_zero_at_the_middle_of_both
         Travel_Distance_of_both_legs = math.sqrt((list_X_coordinates_both_plates[i] - list_X_coordinates_both_plates[i-1])**2 + (list_Y_coordinates_both_plates[i] - list_Y_coordinates_both_plates[i-1])**2)
         Total_Travel_Distance_of_both_legs = Total_Travel_Distance_of_both_legs + Travel_Distance_of_both_legs
 
-print(Total_Travel_Distance_of_left_leg)
-print(Total_Travel_Distance_of_right_leg)
-print(Total_Travel_Distance_of_both_legs)
+print("Total Travel Distance of the Left leg was " + str(Total_Travel_Distance_of_left_leg))
+print("Total Travel Distance of the Right leg was " + str(Total_Travel_Distance_of_right_leg))
+print("Total Travel Distance of Both legs was " + str(Total_Travel_Distance_of_both_legs))
 
 #IQR
 array_of_left_leg_X = np.array([list_X_coordinates_left_plate_with_zero_at_the_middle_of_both_platforms])
@@ -137,18 +137,31 @@ IQR_of_right_leg_X = iqr(array_of_right_leg_X)
 IQR_of_right_leg_Y = iqr(array_of_right_leg_Y)
 IQR_of_both_legs_X = iqr(array_of_both_legs_X)
 IQR_of_both_legs_Y = iqr(array_of_both_legs_Y)
-print(IQR_of_left_leg_X)
-print(IQR_of_left_leg_Y)
-print(IQR_of_right_leg_X)
-print(IQR_of_right_leg_Y)
-print(IQR_of_both_legs_X)
-print(IQR_of_both_legs_Y)
+print("IQR_of_Left_leg_X:" + str(IQR_of_left_leg_X))
+print("IQR_of_Left_leg_Y:" + str(IQR_of_left_leg_Y))
+print("IQR_of_Right_leg_X:" + str(IQR_of_right_leg_X))
+print("IQR_of_Right_leg_Y:" + str(IQR_of_right_leg_Y))
+print("IQR_of_Both_legs_X:" + str(IQR_of_both_legs_X))
+print("IQR_of_Both_legs_Y:" + str(IQR_of_both_legs_Y))
 
 
-plt.plot(list_X_coordinates_left_plate_with_zero_at_the_middle_of_both_platforms, list_Y_coordinates_left_plate_with_zero_at_the_middle_of_the_platform, label = "left leg")
-plt.plot(list_X_coordinates_right_plate_with_zero_at_the_middle_of_both_platforms, list_Y_coordinates_right_plate_with_zero_at_the_middle_of_the_platform, label = "right leg")
-plt.plot(list_X_coordinates_both_plates, list_Y_coordinates_both_plates, label = "both leg")
+plt.plot(list_X_coordinates_left_plate_with_zero_at_the_middle_of_both_platforms, list_Y_coordinates_left_plate_with_zero_at_the_middle_of_the_platform, label = "Left leg")
+plt.plot(list_X_coordinates_right_plate_with_zero_at_the_middle_of_both_platforms, list_Y_coordinates_right_plate_with_zero_at_the_middle_of_the_platform, label = "Right leg")
+plt.plot(list_X_coordinates_both_plates, list_Y_coordinates_both_plates, label = "Both leg")
 plt.legend()
 plt.show()
 
+#Min-max range
+Min_max_range_Left_X = abs(max(list_X_coordinates_left_plate_with_zero_at_the_middle_of_both_platforms) - min(list_X_coordinates_left_plate_with_zero_at_the_middle_of_both_platforms))
+Min_max_range_Left_Y = abs(max(list_Y_coordinates_left_plate_with_zero_at_the_middle_of_the_platform) - min(list_Y_coordinates_left_plate_with_zero_at_the_middle_of_the_platform))
+Min_max_range_Right_X = abs(max(list_X_coordinates_right_plate_with_zero_at_the_middle_of_both_platforms) - min(list_X_coordinates_right_plate_with_zero_at_the_middle_of_both_platforms))
+Min_max_range_Right_Y = abs(max(list_Y_coordinates_right_plate_with_zero_at_the_middle_of_the_platform) - min(list_Y_coordinates_right_plate_with_zero_at_the_middle_of_the_platform))
+Min_max_range_Both_X = abs(max(list_X_coordinates_both_plates) - min(list_X_coordinates_both_plates))
+Min_max_range_Both_Y = abs(max(list_Y_coordinates_both_plates) - min(list_Y_coordinates_both_plates))
+print("Min_max_range_Left_X" + str(Min_max_range_Left_X))
+print("Min_max_range_Left_Y" + str(Min_max_range_Left_Y))
+print("Min_max_range_Right_X" + str(Min_max_range_Right_X))
+print("Min_max_range_Right_Y" + str(Min_max_range_Right_Y))
+print("Min_max_range_Both_X" + str(Min_max_range_Both_X))
+print("Min_max_range_Both_Y" + str(Min_max_range_Both_Y))
 
