@@ -98,7 +98,7 @@ for t in time_period:
 
     Left_df_force = filedialog.askopenfilename(initialdir="C:\\",
                                                # initioaldir = "Which directory will the program open",
-                                               title="Select CMV File For Left leg",
+                                               title="Select the " + t + " CMV File For Left leg",
                                                # title = "Title",
                                                filetypes=(("csv files", "*.csv"), ("all files", "*.*")))
     left_df = pd.read_csv(Left_df_force, header=None, delimiter=',', decimal='.', names=['Time', 'Data'])
@@ -318,7 +318,7 @@ for t in time_period:
 
     Right_df_force = filedialog.askopenfilename(initialdir="C:\\",
                                                 # initioaldir = "Which directory will the program open",
-                                                title="Select CMV File for the Right leg",
+                                                title="Select the  " + t + "  CMV File for the Right leg",
                                                 # title = "Title",
                                                 filetypes=(("csv files", "*.csv"), ("all files", "*.*")))
     Right_df = pd.read_csv(Right_df_force, header=None, delimiter=',', decimal='.', names=['Time', 'Data'])
