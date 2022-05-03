@@ -5,6 +5,8 @@ import pandas as pd
 import math
 import numpy as np
 from scipy.stats import iqr
+from scipy import signal
+
 
 filename = filedialog.askopenfilename(initialdir="C:\\",
                                                        # initioaldir = "Which directory will the program open",
@@ -21,24 +23,51 @@ df = pd.read_csv(filename,
                              skiprows=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
                              header=None)
 print(df)
+#Begining of filtering proccess
+column_name_to_be_filtered = [0,1,2,3,4,5,6,7,8,9,10]
+for ch in column_name_to_be_filtered:
+    if ch == 0 or ch == 5 or ch == 10:
+        if ch == 0:
+            df_filtered = pd.DataFrame(data=df[0])
+            print(df_filtered)
+        elif ch == 5:
+            df_filtered[5] = df[5]
+            print(df_filtered)
+        elif ch == 10:
+            df_filtered[10] = df[10]
+            print(df_filtered)
+    else:
+        #Insert each column in a series
+        f1 = df[ch]
+        # Set the Sampling Frequancy (fc) and the Cut-off Frequency (fc)
+        fs = 75
+        fc = 3
+        # the 3 lines below are for the Low Butterworth filter
+        w = fc / (fs / 2)
+        b, a = signal.butter(4, w, 'low')
+        f1_filtered = signal.filtfilt(b, a, f1)
+        df_filtered[ch] = f1_filtered
+        print(df_filtered)
+
+
 X = 120
 Y = 260
 list_X_coordinates_left_plate = []
 list_Y_coordinates_left_plate = []
-for i in range(len(df[1])):
-    F_all = df[1][i] + df[2][i] + df[3][i] + df[4][i]
-    x_coordinate = (X*(df[2][i]+df[3][i]))/F_all
+for i in range(len(df_filtered[1])):
+    F_all = df_filtered[1][i] + df_filtered[2][i] + df_filtered[3][i] + df_filtered[4][i]
+    x_coordinate = (X*(df_filtered[2][i]+df_filtered[3][i]))/F_all
     list_X_coordinates_left_plate.append(x_coordinate)
-    y_coordinate = (Y*(df[3][i]+df[4][i]))/F_all
+    y_coordinate = (Y*(df_filtered[3][i]+df_filtered[4][i]))/F_all
     list_Y_coordinates_left_plate.append(y_coordinate)
 
 list_X_coordinates_right_plate = []
 list_Y_coordinates_right_plate = []
-for i in range(len(df[1])):
-    F_all = df[6][i] + df[7][i] + df[8][i] + df[9][i]
-    x_coordinate = (X*(df[7][i]+df[8][i]))/F_all
+for i in range(len(df_filtered[1])):
+    F_all = df_filtered[6][i] + df_filtered[7][i] + df_filtered[8][i] + df_filtered[9][i]
+    x_coordinate = (X*(df_filtered[7][i]+df_filtered[8][i]))/F_all
     list_X_coordinates_right_plate.append(x_coordinate)
-    y_coordinate = (Y*(df[8][i]+df[9][i]))/F_all
+    y_coordinate = (Y*(df_filtered[8][i]+df_filtered[9][i]))/F_all
     list_Y_coordinates_right_plate.append(y_coordinate)
 
 print(list_Y_coordinates_right_plate)
