@@ -6,17 +6,18 @@ import math
 import numpy as np
 from scipy.stats import iqr
 from scipy import signal
+import statistics
 
 
-filename = filedialog.askopenfilename(initialdir="C:\\",
-                                                       # initioaldir = "Which directory will the program open",
-                                                       title="Select CSV File",
-                                                       # title = "Title",
-                                                       filetypes=(("csv files", "*.csv"), ("all files", "*.*")))
-            # filetypes = (("name files", "*.name")) <--- which types of file should the program see
-            # if you choose the csv file you will see that the text that it returns is the path of the file
-            # Therefore we can use it like this
-df = pd.read_csv(filename,
+# filename = filedialog.askopenfilename(initialdir="C:\\",
+#                                                        # initioaldir = "Which directory will the program open",
+#                                                        title="Select CSV File",
+#                                                        # title = "Title",
+#                                                        filetypes=(("csv files", "*.csv"), ("all files", "*.*")))
+#             # filetypes = (("name files", "*.name")) <--- which types of file should the program see
+#             # if you choose the csv file you will see that the text that it returns is the path of the file
+#             # Therefore we can use it like this
+df = pd.read_csv('C:\Python Projects\Final script of Osteoarthritis\Subjects\subject1\pre\stance evaluation_Μαλουτα Παρθένα  21Φεβ22_09_43_34.csv',
                              delimiter=',',
                              decimal='.',
                              thousands=',',
@@ -101,6 +102,7 @@ for i in range(len(list_X_coordinates_right_plate)):
 #Inter Quatrile Range (IQR)
 #Power Spectrum***
 #Max-min range
+#Weight distribution
 
 #Travel Distance
 Total_Travel_Distance_of_left_leg = 0
@@ -164,5 +166,89 @@ print("Min_max_range_Right_X" + str(Min_max_range_Right_X))
 print("Min_max_range_Right_Y" + str(Min_max_range_Right_Y))
 print("Min_max_range_Both_X" + str(Min_max_range_Both_X))
 print("Min_max_range_Both_Y" + str(Min_max_range_Both_Y))
+
+#Weight distribution
+#Create a list with the force output in each platform by adding the
+#Force of each transducer and then the whole force of both the platforms
+F_Left_leg = []
+F_Right_leg = []
+F_Both_legs = []
+for i in range(len(list_X_coordinates_both_plates)):
+    F_Left_leg.append(df_filtered[1][i]+df_filtered[2][i]+df_filtered[3][i]+df_filtered[4][i])
+    F_Right_leg.append(df_filtered[6][i]+df_filtered[7][i]+df_filtered[8][i]+df_filtered[9][i])
+    F_Both_legs.append(F_Left_leg[i]+F_Right_leg[i])
+# print(F_Left_leg)
+# print(F_Right_leg)
+# print(F_Both_legs)
+# print(statistics.stdev(F_Both_legs))
+# plt.plot(F_Both_legs)
+# plt.show()
+Percentage_of_F_Left_leg = []
+Percentage_of_F_Right_leg = []
+
+for i in range(len(F_Left_leg)):
+    Percentage_of_F_Left_leg.append((F_Left_leg[i] / F_Both_legs[i]) * 100)
+    Percentage_of_F_Left_leg.append((F_Right_leg[i] / F_Both_legs[i]) * 100)
+
+#Average of Forces in left, right and both
+sum_Left = 0
+sum_Right = 0
+sum_Both = 0
+for i  in range(len(F_Left_leg)):
+    sum_Left += F_Left_leg[i]
+    sum_Right += F_Right_leg[i]
+    sum_Both += F_Both_legs[i]
+Average_Left_leg = sum_Left / len(F_Left_leg)
+Average_Right_leg = sum_Right / len(F_Right_leg)
+Average_Both_legs = sum_Both / len(F_Both_legs)
+print("Average_Left_leg :" + str(Average_Left_leg))
+print("Average_Right_leg :" + str(Average_Right_leg))
+print("Average_Both_legs :" + str(Average_Both_legs))
+SD_Left_leg = statistics.stdev(F_Left_leg)
+SD_Right_leg = statistics.stdev(F_Right_leg)
+SD_Both_legs = statistics.stdev(F_Both_legs)
+print("SD_Left_leg :" + str(SD_Left_leg))
+print("SD_Right_leg :" + str(SD_Right_leg))
+print("SD_Both_legs :" + str(SD_Both_legs))
+#Creation of Excel File
+#Creation of Dataframe which will be turned into an excel file
+if Surgery_Leg == "Left":
+    Column_1 = ["CoP", "Left S", "x (mm)"]
+    for i in range(len(list_X_coordinates_left_plate_with_zero_at_the_middle_of_both_platforms)):
+        Column_1.append(list_X_coordinates_left_plate_with_zero_at_the_middle_of_both_platforms[i])
+    Column_2 = ["CoP", "Left S", "y (mm)"]
+    for i in range(len(list_Y_coordinates_left_plate_with_zero_at_the_middle_of_the_platform)):
+        Column_2.append(list_Y_coordinates_left_plate_with_zero_at_the_middle_of_the_platform[i])
+    Column_3 = ["CoP", "Left S", "F (%)"]
+    for i in range(len(Percentage_of_F_Left_leg)):
+        Column_3.append(Percentage_of_F_Left_leg[i])
+    Column_4 = ["CoP", "Right", "x (mm)"]
+    for i in range(len(list_X_coordinates_right_plate_with_zero_at_the_middle_of_both_platforms)):
+        Column_4.append(list_X_coordinates_right_plate_with_zero_at_the_middle_of_both_platforms[i])
+    Column_5 = ["CoP", "Right", "y (mm)"]
+    for i in range(len(list_Y_coordinates_right_plate_with_zero_at_the_middle_of_the_platform)):
+        Column_5.append(list_Y_coordinates_right_plate_with_zero_at_the_middle_of_the_platform[i])
+    Column_6 = ["CoP", "Right", "F (%)"]
+    for i in range(len(Percentage_of_F_Right_leg)):
+        Column_6.append(Percentage_of_F_Right_leg[i])
+    Column_7 = ["CoP", "Both", "x (mm)"]
+    for i in range(len(list_X_coordinates_both_plates)):
+        Column_7.append(list_X_coordinates_both_plates[i])
+    Column_8 = ["CoP", "Both", "y (mm)"]
+    for i in range(len(list_Y_coordinates_both_plates)):
+        Column_8.append(list_Y_coordinates_both_plates[i])
+    Column_10 = [""]
+    Column_11 = ["","Left S", "Right", "Both"]
+    Column_12 = ["Average Force (kg)",Average_Left_leg, Average_Right_leg, Average_Both_legs]
+    Column_13 = ["","Left S", "Right", "Both"]
+    Column_14 = ["Stdev Force (kg)",SD_Left_leg, SD_Right_leg, SD_Both_legs]
+    Column_15 = ["","Left S", "Right", "Both"]
+    Column_16 = ["IQR x (mm)", IQR_of_left_leg_X, IQR_of_right_leg_X, IQR_of_both_legs_X]
+    Column_17 = ["IQR y (mm)", IQR_of_left_leg_Y, IQR_of_right_leg_Y, IQR_of_both_legs_Y]
+    Column_18 = ["", "Left S", "Right", "Both"]
+    Column_19 = ["Travel distance (mm)",Total_Travel_Distance_of_left_leg, Total_Travel_Distance_of_right_leg, Total_Travel_Distance_of_both_legs]
+    Column_20 = ["", "Left S", "Right", "Both"]
+    Column_21 = ["Min to Max x (mm)", Min_max_range_Left_X, Min_max_range_Right_X, Min_max_range_Both_X]
+    Column_22 = ["Min to Max y (mm)", Min_max_range_Left_Y, Min_max_range_Right_Y, Min_max_range_Both_Y]
 
 
