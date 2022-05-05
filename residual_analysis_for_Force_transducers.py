@@ -10,37 +10,6 @@ from matplotlib.widgets import TextBox
 # Fs = Sampling Frequency
 fs = 75
 
-
-# df = pd.read_csv('C:\Python_projects\Final_script_of_Osteoarthritis\stance evaluation_Μαλουτα Παρθένα  21Φεβ22_09_43_34.csv')
-# print(df)
-#
-# Transducers_names_in_columns = ['CHANNEL_1','CHANNEL_2','CHANNEL_3','CHANNEL_4','CHANNEL_1.1','CHANNEL_2.1','CHANNEL_3.1','CHANNEL_4.1',]
-# for ch in Transducers_names_in_columns:
-#     f1 = df[ch]
-#
-#     R_fc = []
-#     fc2 = []
-#
-#     for fc in range(1,20):
-#         f1_filtered = lib_Milonas.Butterworth(Fs,fc,f1)
-#         # Winter equation (3.9)
-#         sum=0
-#         differences = []
-#         for xi,xi_hat in zip(f1,f1_filtered):
-#             x_diff = xi-xi_hat
-#             differences.append(x_diff)
-#             sum+=(x_diff)**2
-#         sum=sum/len(f1)
-#         R_fc.append(math.sqrt(sum))
-#         # plt.title(fc)
-#         # plt.plot(f1_filtered,label='filtered')
-#         # plt.plot(f1,label='raw')
-#         # plt.legend()
-#         # plt.show()
-#
-#     plt.plot(R_fc,label=ch)
-# plt.legend()
-# plt.show()
 def create_a_df_for_all_the_residuals(df):
 
     for i in column_name_to_be_filtered:
