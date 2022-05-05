@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import math
-import lib_Milonas
+
 from scipy import signal
 import numpy as np
 from matplotlib.widgets import Slider
@@ -67,21 +67,21 @@ def create_a_df_for_all_the_residuals(df):
 # plt.plot(list_of_average_residual)
 # plt.show()
 
-list_of_CoP_name_files = ["C:\Python_projects\Final_script_of_Osteoarthritis\Test of residuals\stance evaluation_Μαλουτα Παρθένα  21Φεβ22_09_43_34.csv",
-                          "C:\Python_projects\Final_script_of_Osteoarthritis\Test of residuals\stance evaluation_Μαλουτα Παρθένα  25Φεβ22_09_41_01.csv",
-                          "C:\Python_projects\Final_script_of_Osteoarthritis\Test of residuals\stance evaluation_Μαλουτα Παρθένα  11Mar22_10_17_50.csv",
-                          "C:\Python_projects\Final_script_of_Osteoarthritis\Test of residuals\stance evaluation_Μαλουτα Παρθένα  29Mar22_10_39_21.csv",
-                          "C:\Python_projects\Final_script_of_Osteoarthritis\Test of residuals\stance evaluation_Παπαδόπουλος  Ιωάννης   28Feb22_10_01_17.csv",
-                          "C:\Python_projects\Final_script_of_Osteoarthritis\Test of residuals\stance evaluation_Παπαδόπουλος  Ιωάννης   04Mar22_09_12_16.csv",
-                          "C:\Python_projects\Final_script_of_Osteoarthritis\Test of residuals\stance evaluation_Παπαδόπουλος  Ιωάννης   21Mar22_10_00_59.csv",
-                          "C:\Python_projects\Final_script_of_Osteoarthritis\Test of residuals\stance evaluation_Παπαδόπουλος  Ιωάννης   04Απρ22_10_36_52.csv",
-                          "C:\Python_projects\Final_script_of_Osteoarthritis\Test of residuals\stance evaluation_Μπατζακη Πολυξένη   14Mar22_09_51_45.csv",
-                          "C:\Python_projects\Final_script_of_Osteoarthritis\Test of residuals\stance evaluation_Μπατζακη Πολυξένη   18Mar22_09_51_40.csv",
-                          "C:\Python_projects\Final_script_of_Osteoarthritis\Test of residuals\stance evaluation_Μπατζακη Πολυξένη   03Απρ22_19_16_50.csv",
-                          "C:\Python_projects\Final_script_of_Osteoarthritis\Test of residuals\stance evaluation_Μπατζακη Πολυξένη   20Απρ22_09_49_12.csv",
-                          "C:\Python_projects\Final_script_of_Osteoarthritis\Test of residuals\stance evaluation_Χανδολιας  Χρήστος   28Mar22_10_17_41.csv",
-                          "C:\Python_projects\Final_script_of_Osteoarthritis\Test of residuals\stance evaluation_Χανδολιας  Χρήστος   03Apr22_10_31_38.csv",
-                          "C:\Python_projects\Final_script_of_Osteoarthritis\Test of residuals\stance evaluation_Χανδολιας  Χρήστος   15Apr22_08_57_33.csv",]
+list_of_CoP_name_files = ["C:\Python Projects\Final script of Osteoarthritis\Test of residuals\stance evaluation_Μαλουτα Παρθένα  21Φεβ22_09_43_34.csv",
+                          "C:\Python Projects\Final script of Osteoarthritis\Test of residuals\stance evaluation_Μαλουτα Παρθένα  25Φεβ22_09_41_01.csv",
+                          "C:\Python Projects\Final script of Osteoarthritis\Test of residuals\stance evaluation_Μαλουτα Παρθένα  11Mar22_10_17_50.csv",
+                          "C:\Python Projects\Final script of Osteoarthritis\Test of residuals\stance evaluation_Μαλουτα Παρθένα  29Mar22_10_39_21.csv",
+                          "C:\Python Projects\Final script of Osteoarthritis\Test of residuals\stance evaluation_Παπαδόπουλος  Ιωάννης   28Feb22_10_01_17.csv",
+                          "C:\Python Projects\Final script of Osteoarthritis\Test of residuals\stance evaluation_Παπαδόπουλος  Ιωάννης   04Mar22_09_12_16.csv",
+                          "C:\Python Projects\Final script of Osteoarthritis\Test of residuals\stance evaluation_Παπαδόπουλος  Ιωάννης   21Mar22_10_00_59.csv",
+                          "C:\Python Projects\Final script of Osteoarthritis\Test of residuals\stance evaluation_Παπαδόπουλος  Ιωάννης   04Απρ22_10_36_52.csv",
+                          "C:\Python Projects\Final script of Osteoarthritis\Test of residuals\stance evaluation_Μπατζακη Πολυξένη   14Mar22_09_51_45.csv",
+                          "C:\Python Projects\Final script of Osteoarthritis\Test of residuals\stance evaluation_Μπατζακη Πολυξένη   18Mar22_09_51_40.csv",
+                          "C:\Python Projects\Final script of Osteoarthritis\Test of residuals\stance evaluation_Μπατζακη Πολυξένη   03Απρ22_19_16_50.csv",
+                          "C:\Python Projects\Final script of Osteoarthritis\Test of residuals\stance evaluation_Μπατζακη Πολυξένη   20Απρ22_09_49_12.csv",
+                          "C:\Python Projects\Final script of Osteoarthritis\Test of residuals\stance evaluation_Χανδολιας  Χρήστος   28Mar22_10_17_41.csv",
+                          "C:\Python Projects\Final script of Osteoarthritis\Test of residuals\stance evaluation_Χανδολιας  Χρήστος   03Apr22_10_31_38.csv",
+                          "C:\Python Projects\Final script of Osteoarthritis\Test of residuals\stance evaluation_Χανδολιας  Χρήστος   15Apr22_08_57_33.csv",]
 
 for i in range(len(list_of_CoP_name_files)):
     # print(list_of_CoP_name_files[i])
@@ -103,30 +103,34 @@ Names_of_labels_for_plotting = ["Μαλούτα Pre","Μαλούτα Post","Μα
 # for i in range(len(df_residuals_of_all_the_trials.columns)):
 #     plt.plot(df_residuals_of_all_the_trials[i],label = Names_of_labels_for_plotting[i])
 
-plt.plot(df_residuals_of_all_the_trials[0],label = Names_of_labels_for_plotting[0],color="red",linestyle="solid")
-plt.plot(df_residuals_of_all_the_trials[1],label = Names_of_labels_for_plotting[1],color="red",linestyle="dotted")
-plt.plot(df_residuals_of_all_the_trials[2],label = Names_of_labels_for_plotting[2],color="red",linestyle="dashed")
-plt.plot(df_residuals_of_all_the_trials[3],label = Names_of_labels_for_plotting[3],color="red",linestyle=(0, (3, 5, 1, 5)))
-plt.plot(df_residuals_of_all_the_trials[4],label = Names_of_labels_for_plotting[4],color="black",linestyle="solid")
-plt.plot(df_residuals_of_all_the_trials[5],label = Names_of_labels_for_plotting[5],color="black",linestyle="dotted")
-plt.plot(df_residuals_of_all_the_trials[6],label = Names_of_labels_for_plotting[6],color="black",linestyle="dashed")
-plt.plot(df_residuals_of_all_the_trials[7],label = Names_of_labels_for_plotting[7],color="black",linestyle=(0, (3, 5, 1, 5)))
-plt.plot(df_residuals_of_all_the_trials[8],label = Names_of_labels_for_plotting[8],color="blue",linestyle="solid")
-plt.plot(df_residuals_of_all_the_trials[9],label = Names_of_labels_for_plotting[9],color="blue",linestyle="dotted")
-plt.plot(df_residuals_of_all_the_trials[10],label = Names_of_labels_for_plotting[10],color="blue",linestyle="dashed")
-plt.plot(df_residuals_of_all_the_trials[11],label = Names_of_labels_for_plotting[11],color="blue",linestyle=(0, (3, 5, 1, 5)))
-plt.plot(df_residuals_of_all_the_trials[12],label = Names_of_labels_for_plotting[12],color="green",linestyle="solid")
-plt.plot(df_residuals_of_all_the_trials[13],label = Names_of_labels_for_plotting[13],color="green",linestyle="dotted")
-plt.plot(df_residuals_of_all_the_trials[14],label = Names_of_labels_for_plotting[14],color="green",linestyle="dashed")
-# axfreq = plt.axes([0.162, 0, 0.705, 0.05])
-# amp_slider = Slider(
-#     ax = axfreq,
-#     label="Amplitude",
-#     valmin=0,
-#     valmax=18,
-#     orientation="horizontal")
-# def update(val):
-#     plt.lines.Line2D(xdata = 0.6,ydata = val)
-# amp_slider.on_changed(update)
+plt.plot(df_residuals_of_all_the_trials[0], label=Names_of_labels_for_plotting[0], color="red",linestyle="solid")
+plt.plot(df_residuals_of_all_the_trials[1], label=Names_of_labels_for_plotting[1], color="red",linestyle="dotted")
+plt.plot(df_residuals_of_all_the_trials[2], label=Names_of_labels_for_plotting[2], color="red",linestyle="dashed")
+plt.plot(df_residuals_of_all_the_trials[3], label=Names_of_labels_for_plotting[3], color="red",linestyle=(0, (3, 5, 1, 5)))
+plt.plot(df_residuals_of_all_the_trials[4], label=Names_of_labels_for_plotting[4], color="black",linestyle="solid")
+plt.plot(df_residuals_of_all_the_trials[5], label=Names_of_labels_for_plotting[5], color="black",linestyle="dotted")
+plt.plot(df_residuals_of_all_the_trials[6], label=Names_of_labels_for_plotting[6], color="black",linestyle="dashed")
+plt.plot(df_residuals_of_all_the_trials[7], label=Names_of_labels_for_plotting[7], color="black",linestyle=(0, (3, 5, 1, 5)))
+plt.plot(df_residuals_of_all_the_trials[8], label=Names_of_labels_for_plotting[8], color="blue",linestyle="solid")
+plt.plot(df_residuals_of_all_the_trials[9], label=Names_of_labels_for_plotting[9], color="blue",linestyle="dotted")
+plt.plot(df_residuals_of_all_the_trials[10], label=Names_of_labels_for_plotting[10], color="blue",linestyle="dashed")
+plt.plot(df_residuals_of_all_the_trials[11], label=Names_of_labels_for_plotting[11], color="blue",linestyle=(0, (3, 5, 1, 5)))
+plt.plot(df_residuals_of_all_the_trials[12], label=Names_of_labels_for_plotting[12], color="green",linestyle="solid")
+plt.plot(df_residuals_of_all_the_trials[13], label=Names_of_labels_for_plotting[13], color="green",linestyle="dotted")
+plt.plot(df_residuals_of_all_the_trials[14], label=Names_of_labels_for_plotting[14], color="green",linestyle="dashed")
+
+
+axv=plt.axvline(x=0, color='blue', lw=2)
+
+axfreq = plt.axes([0.162, 0, 0.705, 0.05])
+amp_slider = Slider(
+    ax=axfreq,
+    label="Cut-off Frequency",
+    valmin=0,
+    valmax=18,
+    orientation="horizontal")
+def update(val):
+    axv.set_xdata(val)
+amp_slider.on_changed(update)
 plt.legend()
 plt.show()
