@@ -7,6 +7,7 @@ import statistics
 
 
 time_period = ["Pre-surgery","Post-surgery","2 weeks","4 weeks"]
+#time_period = ["3 months"]
 name = input("What is the name of the Excel file") + ".xlsx"
 Surgery_Leg = input("In which leg did the surgery took place")
 while not Surgery_Leg == "Left" and not Surgery_Leg == "Right":
@@ -107,6 +108,7 @@ for t in time_period:
     print(left_newdf)
     Left_Columns_names = left_newdf.columns
     fig = plt.figure(figsize=(8, 12))
+
     fig.suptitle('Select the area in which the Force will be processed ', fontsize=16)
 
     ax1 = fig.add_subplot(511)
@@ -327,6 +329,7 @@ for t in time_period:
     Right_newdf = csv_transform(Right_df)
     print(Right_newdf)
     Right_Columns_names = Right_newdf.columns
+
     fig = plt.figure(figsize=(8, 12))
     fig.suptitle('Select the area in which the Force will be processed ', fontsize=16)
 
@@ -453,6 +456,7 @@ for t in time_period:
                         wspace=0.4,
                         hspace=0.4)
     plt.legend()
+    plt.rcParams.update({'font.size': 24})
     plt.show()
     if Surgery_Leg == "Left":
         Column_1 = ["Left S", "Extension 1"]

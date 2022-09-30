@@ -10,6 +10,7 @@ import statistics
 
 
 time_period = ["Pre-surgery","Post-surgery","2 weeks","4 weeks"]
+#time_period = ["3 months"]
 name = input("What is the name of the Excel file") + "CoP" + ".xlsx"
 Surgery_Leg = input("In which leg did the surgery took place")
 while not Surgery_Leg == "Left" and not Surgery_Leg == "Right":
