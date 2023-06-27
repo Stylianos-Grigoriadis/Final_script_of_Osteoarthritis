@@ -51,10 +51,10 @@ def FFT(var,fs):
 
 variables = []
 for p,l in zip(force_files,knee):
-    pre = pd.read_excel('data\{p}CoP.xlsx'.format(p=p),header=[1,2,3],sheet_name='Pre-surgery')
-    post = pd.read_excel('data\{p}CoP.xlsx'.format( p=p), header=[1, 2, 3],sheet_name='Post-surgery')
-    w2 = pd.read_excel('data\{p}CoP.xlsx'.format(p=p), header=[1, 2, 3], sheet_name='2 weeks')
-    month = pd.read_excel('data\{p}CoP.xlsx'.format(p=p), header=[1, 2, 3], sheet_name='4 weeks')
+    pre = pd.read_excel(r'C:\Users\Βασίλης\OneDrive - Αριστοτέλειο Πανεπιστήμιο Θεσσαλονίκης\Kinvent\TKA\Data\data\{p}CoP.xlsx'.format(p=p),header=[1,2,3],sheet_name='Pre-surgery')
+    post = pd.read_excel(r'C:\Users\Βασίλης\OneDrive - Αριστοτέλειο Πανεπιστήμιο Θεσσαλονίκης\Kinvent\TKA\Data\data\{p}CoP.xlsx'.format( p=p), header=[1, 2, 3],sheet_name='Post-surgery')
+    w2 = pd.read_excel(r'C:\Users\Βασίλης\OneDrive - Αριστοτέλειο Πανεπιστήμιο Θεσσαλονίκης\Kinvent\TKA\Data\data\{p}CoP.xlsx'.format(p=p), header=[1, 2, 3], sheet_name='2 weeks')
+    month = pd.read_excel(r'C:\Users\Βασίλης\OneDrive - Αριστοτέλειο Πανεπιστήμιο Θεσσαλονίκης\Kinvent\TKA\Data\data\{p}CoP.xlsx'.format(p=p), header=[1, 2, 3], sheet_name='4 weeks')
 
     fs_pre = pre['Fs'].columns[0][0]
     fs_post = post['Fs'].columns[0][0]
@@ -139,26 +139,26 @@ for p,l in zip(force_files,knee):
         if 'pre' in n:
             fs = fs_pre
         elif 'post' in n:
-            fs = fs_pre
+            fs = fs_post
         elif '2w' in n:
-            fs = fs_pre
+            fs = fs_w2
         elif 'month' in n:
-            fs = fs_pre
+            fs = fs_month
 
         f90, f95, f99 = FFT(v, fs)
-        fvars.append(f90)
+        #fvars.append(f90)
         fvars.append(f95)
-        fvars.append(f99)
-        fvar_names.append(n + '_f90')
+        #fvars.append(f99)
+        #fvar_names.append(n + '_f90')
         fvar_names.append(n + '_f95')
-        fvar_names.append(n + '_f99')
+        #fvar_names.append(n + '_f99')
 
     variables.append(fvars)
 results = pd.DataFrame(variables)
 results.columns = fvar_names
 print(results)
 
-# writer = pd.ExcelWriter('ResFFT_all.xlsx')
-# results.to_excel(writer,sheet_name='Freq')
-#
-# writer.close()
+writer = pd.ExcelWriter('ResFFT_all.xlsx')
+results.to_excel(writer,sheet_name='Freq')
+
+writer.close()
