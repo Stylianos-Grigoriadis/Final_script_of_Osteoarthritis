@@ -129,9 +129,9 @@ df_results = pd.DataFrame({'IQR_x_preH':IQR_x_preH,'IQR_x_postH':IQR_x_postH,
                            'TD_preH':TD_preH,'TD_postH':TD_postH,
                            'TD_pre_total':TD_pre,'TD_post_total':TD_post,
                            'Weight_Surgery_pre':Weight_Surgery_pre,'Weight_Surgery_post':Weight_Surgery_post})
-print(df_results)
-writer = pd.ExcelWriter('LR IQR TD 2.xlsx')
-df_results.to_excel(writer)
-writer.save()
-writer.close()
+# print(df_results)
+# writer = pd.ExcelWriter('LR IQR TD 2.xlsx')
+# df_results.to_excel(writer)
+# writer.save()
+# writer.close()
 

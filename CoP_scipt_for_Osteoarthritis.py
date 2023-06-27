@@ -10,11 +10,21 @@ import statistics
 
 
 time_period = ["Pre-surgery","Post-surgery","2 weeks","4 weeks"]
-#time_period = ["3 months"]
+#time_period = ["2 weeks"]
 name = input("What is the name of the Excel file") + "CoP" + ".xlsx"
 Surgery_Leg = input("In which leg did the surgery took place")
+
+# force_files =  ['subject1','subject3','subject7','subject8',
+#                 'subject9','subject10','subject11','subject12','subject14','subject15','subject16','subject17','subject18','subject19'
+#                 ,'subject20','subject21','subject22','subject23','subject24','subject25']
+#
+# knee = ['R','L','L','R','R','L','L','R','R','L','R','R','R','R','R','R','L','L','R','L']
+
+
 while not Surgery_Leg == "Left" and not Surgery_Leg == "Right":
     Surgery_Leg = input("Write Left or Right")
+writer = pd.ExcelWriter(name)
+
 for t in time_period:
     filename = filedialog.askopenfilename(initialdir="C:\\",
                                           # initioaldir = "Which directory will the program open",
@@ -28,34 +38,36 @@ for t in time_period:
                                  delimiter=',',
                                  decimal='.',
                                  thousands=',',
-                                 skiprows=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+                                 skiprows=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16] ,
                                  header=None)
-    print(df)
+    #print(df)
     #Begining of filtering proccess
     column_name_to_be_filtered = [0,1,2,3,4,5,6,7,8,9,10]
     for ch in column_name_to_be_filtered:
         if ch == 0 or ch == 5 or ch == 10:
             if ch == 0:
                 df_filtered = pd.DataFrame(data=df[0])
-                print(df_filtered)
+                #print(df_filtered)
             elif ch == 5:
                 df_filtered[5] = df[5]
-                print(df_filtered)
+                #print(df_filtered)
             elif ch == 10:
                 df_filtered[10] = df[10]
-                print(df_filtered)
+                #print(df_filtered)
         else:
             #Insert each column in a series
             f1 = df[ch]
             # Set the Sampling Frequancy (fc) and the Cut-off Frequency (fc)
-            fs = 75
+            #fs = 75
+            fs = 1/(df[0][1]-df[0][0])
+            #print('fs:',fs)
             fc = 5
             # the 3 lines below are for the Low Butterworth filter
             w = fc / (fs / 2)
             b, a = signal.butter(4, w, 'low')
             f1_filtered = signal.filtfilt(b, a, f1)
             df_filtered[ch] = f1_filtered
-            print(df_filtered)
+            #print(df_filtered)
 
 
     X = 120
@@ -303,11 +315,14 @@ for t in time_period:
                        Column_21]
     Excel_Both_legs_df = pd.DataFrame(result_list)
     Excel_Both_legs_df = Excel_Both_legs_df.T
-    if t == "Pre-surgery":
-        with pd.ExcelWriter(name) as writer:
-            Excel_Both_legs_df.to_excel(writer, sheet_name=t)
-    else:
-        with pd.ExcelWriter(name, mode="a", engine="openpyxl") as writer:
-            Excel_Both_legs_df.to_excel(writer, sheet_name=t)
+    Excel_Both_legs_df.to_excel(writer,sheet_name=t)
 
 
+    # if t == "4 weeks":
+    #     with pd.ExcelWriter(name) as writer:
+    #         Excel_Both_legs_df.to_excel(writer, sheet_name=t)
+    # else:
+    #     with pd.ExcelWriter(name, mode="a", engine="openpyxl") as writer:
+    #         Excel_Both_legs_df.to_excel(writer, sheet_name=t)
+
+writer.close()

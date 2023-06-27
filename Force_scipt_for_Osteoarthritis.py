@@ -6,13 +6,13 @@ from matplotlib.widgets import SpanSelector
 import statistics
 
 
-time_period = ["Pre-surgery","Post-surgery","2 weeks","4 weeks"]
-#time_period = ["3 months"]
+#time_period = ["Pre-surgery","Post-surgery","2 weeks","4 weeks"]
+time_period = ["2 weeks"]
 name = input("What is the name of the Excel file") + ".xlsx"
 Surgery_Leg = input("In which leg did the surgery took place")
 while not Surgery_Leg == "Left" and not Surgery_Leg == "Right":
     Surgery_Leg = input("Write Left or Right")
-
+writer = pd.ExcelWriter(name)
 for t in time_period:
     def csv_transform(df):
         for i in range(len(df)):
@@ -549,12 +549,14 @@ for t in time_period:
                    Column_21, Column_22]
     Excel_Both_legs_df = pd.DataFrame(result_list)
     Excel_Both_legs_df = Excel_Both_legs_df.T
+    Excel_Both_legs_df.to_excel(writer, sheet_name=t)
 
-    if t == "Pre-surgery":
-        with pd.ExcelWriter(name) as writer:
-            Excel_Both_legs_df.to_excel(writer, sheet_name=t)
-    else:
-        with pd.ExcelWriter(name, mode="a", engine="openpyxl") as writer:
-            Excel_Both_legs_df.to_excel(writer, sheet_name=t)
+    # if t == "4 weeks":
+    #     with pd.ExcelWriter(name) as writer:
+    #         Excel_Both_legs_df.to_excel(writer, sheet_name=t)
+    # else:
+    #     with pd.ExcelWriter(name, mode="a", engine="openpyxl") as writer:
+    #         Excel_Both_legs_df.to_excel(writer, sheet_name=t)
 
 
+writer.close()
